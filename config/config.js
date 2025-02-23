@@ -8,7 +8,7 @@ const config = {
     jwtSecret: process.env.JWT_SECRET,
     emailId: process.env.EMAIL_ID,
     emailPass: process.env.EMAIL_PASS,
-    clientUrl: process.env.CLIENT_URL
+    clientUrl: process.env.CLIENT_URL.split(",") // Convert string to array
 };
 
 export default config;
