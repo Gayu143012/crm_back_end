@@ -19,7 +19,13 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(cors({
-    origin: config.clientUrl ,
+    origin: function (origin, callback) {
+        if (!origin || config.clientUrl.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true
 }));
 
