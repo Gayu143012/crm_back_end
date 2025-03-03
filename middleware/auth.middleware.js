@@ -29,9 +29,14 @@ export const verifyToken = (req, res, next) => {
 };
 export const verifyAdminRegistration = (req, res, next) => {
     if (req.body.role === "admin") {
-        if (!req.body.adminCode || req.body.adminCode !== process.env.ADMIN_REGISTRATION_CODE) {
+        if (!req.body.adminCode) {
+            return res.status(400).json({ message: "Admin code is required for admin registration" });
+        }
+
+        if (req.body.adminCode !== process.env.ADMIN_REGISTRATION_CODE) {
             return res.status(403).json({ message: "Invalid admin registration code" });
         }
     }
     next();
 };
+
