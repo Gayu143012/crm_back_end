@@ -19,7 +19,7 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(cors({
-    origin: config.clientUrl || 'https://crmfep.netlify.app',
+    origin: config.clientUrl || 'https://playful-bienenstitch-49f0a6.netlify.app',
     credentials: true
 }));
 
