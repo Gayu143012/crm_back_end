@@ -18,9 +18,23 @@ const app = express();
 
 // middleware
 app.use(express.json());
+
+const allowedOrigins = [
+  "https://playful-bienenstitch-49f0a6.netlify.app",
+  "http://localhost:5173" // Allow local testing
+];
+
 app.use(cors({
-    origin: config.clientUrl || 'https://playful-bienenstitch-49f0a6.netlify.app',
-    credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
 }));
 
 // db connection
