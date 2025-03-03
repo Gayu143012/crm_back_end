@@ -29,13 +29,15 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.error("Blocked by CORS:", origin);
       callback(new Error("Not allowed by CORS"));
     }
   },
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization", "x-auth-token"], // ✅ Allow x-auth-token
+  allowedHeaders: ["Content-Type", "Authorization", "x-auth-token"], 
   credentials: true
 }));
+
 
 // db connection
 connectDB();
