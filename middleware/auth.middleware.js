@@ -29,18 +29,24 @@ export const verifyToken = (req, res, next) => {
 };
 
 export const verifyAdminRegistration = (req, res, next) => {
-    if (req.body.role === "admin") {
-        console.log("Admin Registration Attempt. Admin Code Provided:", req.body.adminCode);
-        console.log("Expected Admin Code:", process.env.ADMIN_REGISTRATION_CODE);
+    const DEFAULT_ADMIN_CODE = "123456"; // Default admin code
 
-        if (!req.body.adminCode) {
-            return res.status(400).json({ message: "Admin code is required for admin registration" });
+    if (req.body.role === "admin") {
+        const providedCode = req.body.adminCode ? req.body.adminCode.trim() : "";
+        const expectedCode = (process.env.ADMIN_REGISTRATION_CODE || DEFAULT_ADMIN_CODE).trim();
+
+        console.log("🔍 Admin Registration Attempt. Provided Code:", providedCode);
+        console.log("✅ Expected Admin Code:", expectedCode);
+
+        if (!providedCode) {
+            return res.status(400).json({ success: false, error: "Admin code is required for admin registration" });
         }
 
-        if (req.body.adminCode !== process.env.ADMIN_REGISTRATION_CODE) {
-            return res.status(403).json({ message: "Invalid admin registration code" });
+        if (providedCode !== expectedCode) {
+            return res.status(403).json({ success: false, error: "Invalid admin registration code" });
         }
     }
-    next();
+
+    next(); // Proceed to next middleware or controller
 };
 
