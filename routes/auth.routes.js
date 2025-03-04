@@ -6,6 +6,7 @@ import { verifyToken, verifyAdminRegistration } from "../middleware/auth.middlew
 
 
 const router = Router();
+router.use(express.json());
 
 router.post("/register", verifyAdminRegistration, register);
 router.post("/login", login);
