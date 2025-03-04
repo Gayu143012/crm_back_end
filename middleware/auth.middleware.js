@@ -27,8 +27,12 @@ export const verifyToken = (req, res, next) => {
         next();
     });
 };
+
 export const verifyAdminRegistration = (req, res, next) => {
     if (req.body.role === "admin") {
+        console.log("Admin Registration Attempt. Admin Code Provided:", req.body.adminCode);
+        console.log("Expected Admin Code:", process.env.ADMIN_REGISTRATION_CODE);
+
         if (!req.body.adminCode) {
             return res.status(400).json({ message: "Admin code is required for admin registration" });
         }
