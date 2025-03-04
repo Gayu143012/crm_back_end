@@ -20,7 +20,7 @@ const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
-  "https://playful-bienenstitch-49f0a6.netlify.app",
+  "https://unique-daifuku-953a72.netlify.app/login",
   "http://localhost:5173" // Allow local testing
 ];
 
